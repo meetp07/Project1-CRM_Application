@@ -1,58 +1,77 @@
-{% extends 'webapp/base.html' %} {% block content %}
+{% extends 'webapp/base.html' %}
 
-<h5>Welcome, {{user}}! 👋</h5>
+{% block content %}
 
-<hr />
+    <h5> Welcome, {{user}}! 👋 </h5>
 
-<a class="btn btn-outline-primary btn-sm" href="{% url 'create-record' %}">
-    Create a new record &nbsp;
-    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-</a>
+    <hr>
 
-<hr />
+    <a class="btn btn-outline-primary btn-sm" href="{% url 'create-record' %}">
 
-<table class="table table-hover table-bordered">
-    <thead class="table-light">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Full name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Address</th>
-            <th scope="col">City</th>
-            <th scope="col">Province</th>
-            <th scope="col">Country</th>
+        Create a new record &nbsp; <i class="fa fa-plus-circle" aria-hidden="true"></i>
 
-            <th scope="col">Date joined</th>
+    </a>
 
-            <th scope="col">View</th>
-        </tr>
-    </thead>
+    <hr> 
 
-    <tbody>
-        {% if records %} 
-            {% for record in records %}
+    <table class="table table-hover table-bordered">
+
+        <thead class="table-light">
 
             <tr>
-                <td>{{record.id}}</td>
 
-                <td>{{record.first_name}} {{record.last_name}}</td>
+                <th scope="col"> ID </th>
+                <th scope="col"> Full name </th>
+                <th scope="col"> Email </th>
+                <th scope="col"> Phone </th>
+                <th scope="col"> Address </th>
+                <th scope="col"> City </th>
+                <th scope="col"> Province </th>
+                <th scope="col"> Country </th>
 
-                <td>{{record.email}}</td>
+                <th scope="col"> Date joined </th>
 
-                <td>{{record.phone}}</td>
-                <td>{{record.address}}</td>
-                <td>{{record.city}}</td>
-                <td>{{record.province}}</td>
-                <td>{{record.country}}</td>
-
-                <td>{{record.creation_date}}</td>
+                <th scope="col"> View </th>
 
             </tr>
 
-            {% endfor %} 
-        {% endif %}
-    </tbody>
-</table>
+        </thead>
 
-{%endblock %}
+        <tbody>
+
+        {% if records %}
+
+            {% for record in records %}
+
+            <tr>
+
+                <td> {{record.id}} </td>
+
+                <td> {{record.first_name}}  {{record.last_name}} </td>
+
+                <td> {{record.email}} </td>
+
+                <td> {{record.phone}} </td>
+                <td> {{record.address}} </td>
+                <td> {{record.city}} </td>
+                <td> {{record.province}} </td>
+                <td> {{record.country}} </td>
+
+                <td> {{record.creation_date}} </td>
+
+                <td> <a class="btn btn-success btn-sm" href="{% url 'record' record.id %}"> <i class="fa fa-eye" aria-hidden="true"></i> </a> </td>
+
+            </tr>
+
+            {% endfor %}
+        
+        {% endif %}
+
+
+        </tbody>
+
+
+    </table>
+
+
+{% endblock %}
