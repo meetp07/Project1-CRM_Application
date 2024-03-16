@@ -4,6 +4,12 @@ from .forms import CreateUserForm, LoginForm
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
 
+from django.contrib.auth.decorators import login_required
+
+from .models import Record
+
+
+
 # Home Page
 
 def home(request):
@@ -39,13 +45,25 @@ def my_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                # return redirect('')
+                return redirect('dashboard')
 
     context = {
         'form2': form
     }
 
     return render(request, 'webapp/my-login.html', context=context)
+
+# Dashboard 
+
+@login_required(login_url='my-login')
+def dashboard(request):
+
+    my_records = Record.objects.all()
+    context = {
+      'records': my_records
+    }
+
+    return render(request, 'webapp/dashboard.html', context=context)
 
 # Logout a user
 
